@@ -1,0 +1,28 @@
+* {box-sizing:border-box;}
+body {background-color: rgb(212,180,212);}
+
+.bgimg {
+    position:fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    z-index:-1;
+    opacity:1;
+}
+
+
+.cat-container {
+    min-width: 250px;
+    min-height: 250px;
+    width:1%;
+    display:table;
+    padding: 10px;
+    border: 1px solid #CCC;
+    background-color: rgba(132,55,132,0.7);
+}
+
+.counter {
+    float: left;
+    display: inline;
+}
+
