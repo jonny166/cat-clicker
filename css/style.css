@@ -16,6 +16,7 @@ body {background-color: rgb(212,180,212);}
     min-height: 250px;
     width:1%;
     display:table;
+    float:left;
     padding: 10px;
     border: 1px solid #CCC;
     background-color: rgba(132,55,132,0.7);
