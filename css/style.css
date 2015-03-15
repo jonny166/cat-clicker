@@ -10,6 +10,10 @@ body {background-color: rgb(212,180,212);}
     opacity:1;
 }
 
+.cat-list {
+    float:left;
+}
+
 
 .cat-container {
     min-width: 250px;
