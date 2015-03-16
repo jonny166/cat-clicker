@@ -9,7 +9,32 @@
   <ul id="cat-list" class="cat-list">
   </ul>
   <div id="cats-container" class="cats-container">
+    <span class="cat-container">
+      <img class="cat-image" id="cat-image" src="" alt="cat image" />
+      <div class="counter-container">
+        <h3 class="counter" id="counter-label"></h3>
+        <h2 class="counter" id="counter" class="counter">0</h2>
+      </div>
+    </span>
   </div>
+  <form id="adminMode">
+    <input type="submit" value="admin mode">
+  </form>
+  <form id="adminForm" class="adminForm">
+    <div>
+      <div>
+        Cat Name <input id="newName" type="text" value="">
+      </div>
+      <div>
+        Image URL <input id="newIMG" type="text" value="">
+      </div>
+      <div>
+        Click Count <input id="newCount" type="int" value="">
+      </div>
+      <input type="submit">
+      <input id="cancelButton" type="button" value="Cancel">
+    </div>
+  </form>
   <script src="js/libs/jquery.min.js"></script>
   <script src="js/script.js"></script>
 </body>

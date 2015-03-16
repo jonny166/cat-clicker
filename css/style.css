@@ -31,3 +31,7 @@ body {background-color: rgb(212,180,212);}
     display: inline;
 }
 
+.adminForm {
+    display: none;
+}
+

@@ -23,20 +23,34 @@ $(function(){
     };
 
     var catView = {
-        catHTML: '<span class="cat-container">\
-            <img class="cat-image" id="cat-image" src="%img%" alt="cat image" />\
-        </div>\
-            <div class="counter-container">\
-            <h3 class="counter" id="counter-label">You have clicked %catName% this many times:&nbsp;</h3>\
-            <h2 class="counter" id="counter" class="counter">0</h2>\
-        </span>',
-        
         init: function(cat){
-            var formattedHTML = this.catHTML.replace("%img%", cat.img).replace(/%catName%/g, cat.catID);
-            $("#cats-container").append(formattedHTML);
-            
             $('#cat-image').click(function(e) {
                 octopus.incrementCounter();
+            });
+
+            //For admin mode
+            $("#adminMode").submit(function( event ) {
+                console.log("admin mode");
+                $("#adminForm").show();
+                event.preventDefault();
+                return;
+            });
+
+            $("#cancelButton").click(function() {
+                console.log("cancel admin mode");
+                $("#adminForm").hide();
+                return;
+            });
+
+
+            $("#adminForm").submit(function( event ) {
+                var newName = $("#newName").val();
+                var newIMG = $("#newIMG").val();
+                var newCount = $("#newCount").val();
+                octopus.updateCat(newName, newIMG, newCount);
+                $("#adminForm").hide();
+                event.preventDefault();
+                return;
             });
         },
 
@@ -44,11 +58,20 @@ $(function(){
             var $counterElem = $('#counter');
             var $catElem = $('#cat-image');
             var $counterLabelElem = $('#counter-label');
+            var $adminCountElem = $('#newCount');
+            var $adminImageElem = $('#newIMG');
+            var $adminNameElem = $('#newName');
+
             $catElem.attr('src', cat.img);
             $counterLabelElem.text("You have clicked " + cat.catID + " this many times: ");
             console.log($counterElem);
             $counterElem.text(cat.counter);
             console.log("clicked cat " + cat.catID + " " + cat.counter + " times");
+            
+            //update the admin form values
+            $adminImageElem.val(cat.img);
+            $adminNameElem.val(cat.catID);
+            $adminCountElem.val(cat.counter);
         },
     };
 
@@ -67,6 +90,11 @@ $(function(){
                 });
             });
         },
+
+        renameCat: function(oldName, newName) {
+            $("#cat"+oldName).text(newName);
+            $("#cat"+oldName).attr("id", "cat" + newName);
+        },
     };
 
     var octopus = {
@@ -80,7 +108,8 @@ $(function(){
             cats["Fred"] = new Cat("Fred", "images/cat5.jpg");
             model.init(cats, "Spooky");
             listView.init(model.cats);
-            catView.init(model.cats[model.currentCatID]);
+            catView.init();
+            catView.render(model.cats[model.currentCatID]);
         },
 
         incrementCounter: function() {
@@ -91,6 +120,14 @@ $(function(){
         swapCat: function(catID) {
             model.currentCatID = catID;
             catView.render(model.cats[catID]);
+        },
+
+        updateCat: function(newName, newIMG, newCount) {
+            listView.renameCat(model.currentCatID, newName);
+            model.cats[model.currentCatID].catID = newName;
+            model.cats[model.currentCatID].img = newIMG;
+            model.cats[model.currentCatID].counter = parseInt(newCount);
+            catView.render(model.cats[model.currentCatID]);
         },
     };
 
