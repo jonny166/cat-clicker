@@ -6,16 +6,33 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div>
+  <div id="catPickerDiv">
+    <h2>Cat Picker</h2>
+    <ul data-bind="foreach: cats">
+      <li data-bind="click: $parent.swapCat">
+        <span data-bind="text: $data.name"></span>
+      </li>
+    </ul>
+  </div>
+  <div data-bind="with: currentCat">
     <div class="cat-container">
-      <img id="cat-image" src="http://placekitten.com/g/500/500" alt="cat image" />
+      <h2 data-bind="text: computedLevel"></h2>
+      <img alt="cat image" data-bind="click: $parent.incrementCount, attr: {src: img}"/>
     </div>
     <div class="counter-container">
-      <h2 class="counter" id="counter-label">You have clicked me this many times:&nbsp;</h2>
-      <h2 class="counter" id="counter" class="counter">0</h2>
+      <h2 class="counter" data-bind="text: computedLabel"></h2>
     </div>
   </div>
+  <div class="nicknames" data-bind="with: currentCat">
+    <ul data-bind="foreach: nicknames">
+      <li>
+        Nickname number <span data-bind="text: $index"> </span> is <span data-bind="text: $data"></span>
+      </li>
+    </ul>
+  </div>
+
   <script src="js/libs/jquery.min.js"></script>
+  <script src="js/libs/knockout-3.3.0.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
